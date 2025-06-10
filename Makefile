@@ -12,7 +12,7 @@ LIBFT_OBJ_DIR = $(OBJ_DIR)/libft
 
 # File lists
 SRCS = $(wildcard $(SRC_DIR)/*.c)
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR/%.o, $(SRCS)))
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 LIBFT_SRCS = $(wildcard $(LIBFT_DIR)/*.c)
 LIBFT_OBJS = $(patsubst $(LIBFT_DIR)/%.c, $(LIBFT_OBJ_DIR)/%.o, $(LIBFT_SRCS))
 
