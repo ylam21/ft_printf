@@ -8,32 +8,30 @@ CFLAGS = -Wall -Wextra -Werror
 SRC_DIR = ./src
 OBJ_DIR = ./objects
 LIBFT_DIR = ./libft
-LIBFT_OBJ_DIR = $(OBJ_DIR)/libft
 
 # File lists
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
-LIBFT_SRCS = $(wildcard $(LIBFT_DIR)/*.c)
-LIBFT_OBJS = $(patsubst $(LIBFT_DIR)/%.c, $(LIBFT_OBJ_DIR)/%.o, $(LIBFT_SRCS))
 
-all: $(NAME)
+all: $(NAME) $(LIBFT_DIR)/libft.a
 
-$(NAME): $(OBJS) $(LIBFT_OBJS)
+$(NAME): $(OBJS)
 	ar -rcs $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT_OBJ_DIR)/%.o: $(LIBFT_DIR)/%.c
-	mkdir -p $(LIBFT_OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(LIBFT_DIR)/libft.a:
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
 	rm -rf $(OBJ_DIR)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

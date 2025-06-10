@@ -1,2 +1,6 @@
+*.a
+*.o
 ./objects
-libftprintf.a
+./libft/objs
+main.c
+a.out
