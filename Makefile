@@ -35,4 +35,8 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+test: $(LIBFT_DIR)/libft.a libftprintf.a
+	$(CC) $(CFLAGS) ./tests/main.c ./src/ft_printf.c -o a.out $(LIBFT_DIR)/libft.a libftprintf.a
+	./a.out
+
+.PHONY: all clean fclean re test
