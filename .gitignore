@@ -1,6 +1,7 @@
 *.a
 *.o
-./objects
-./libft/objs
+objects
+libft/objs
 main.c
 a.out
+printfTester/

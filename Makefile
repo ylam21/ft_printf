@@ -6,37 +6,50 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Directories
 SRC_DIR = ./src
+SRC_DIR_CONV = ./src/conversion
 OBJ_DIR = ./objects
+OBJ_DIR_CONV = $(OBJ_DIR)/conversion
 LIBFT_DIR = ./libft
 
-# File lists
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+# Files
+SRC_FILES = ft_printf.c ft_print_utils.c
+SRC_FILES_CONV = ft_conv_c.c ft_conv_s.c
+
+# Sources
+SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+SRCS_CONV = $(addprefix $(SRC_DIR_CONV)/, $(SRC_FILES_CONV))
+
+# Objects
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS_CONV = $(patsubst $(SRC_DIR_CONV)/%.c, $(OBJ_DIR_CONV)/%.o, $(SRCS_CONV))
 
-all: $(NAME) $(LIBFT_DIR)/libft.a
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR) $(OBJ_DIR_CONV)
 
-$(NAME): $(OBJS)
-	ar -rcs $@ $^
+all: $(OBJ_DIR) $(NAME)
+
+$(NAME): $(OBJS) $(OBJS_CONV)
+	$(MAKE) -C $(LIBFT_DIR)
+	ar -rcs $(NAME) $(OBJS) $(OBJS_CONV) $(LIBFT_DIR)/libft.a
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(LIBFT_DIR) -c $< -o $@
 
-$(LIBFT_DIR)/libft.a:
-	$(MAKE) -C $(LIBFT_DIR)
+$(OBJ_DIR_CONV)/%.o: $(SRC_DIR_CONV)/%.c
+	$(CC) $(CFLAGS) -I$(LIBFT_DIR) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR) $(OBJ_DIR_CONV)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
-re: fclean all
+test:
+	make re
+	gcc tests/main.c
 
-test: $(LIBFT_DIR)/libft.a libftprintf.a
-	$(CC) $(CFLAGS) ./tests/main.c ./src/ft_printf.c -o a.out $(LIBFT_DIR)/libft.a libftprintf.a
-	./a.out
+re: fclean all
 
 .PHONY: all clean fclean re test

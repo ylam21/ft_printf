@@ -1,50 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_utils.c                                   :+:      :+:    :+:   */
+/*   ft_conv_s.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 13:36:27 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/12 13:53:51 by omaly            ###   ########.fr       */
+/*   Created: 2025/06/12 13:45:14 by omaly             #+#    #+#             */
+/*   Updated: 2025/06/12 13:51:28 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
 
-int	ft_write_p(va_list args)
+int ft_write_s(va_list args)
 {
-	(void)args;
-	return (1);
-}
+	int len;
+	char *s;
 
-int	ft_write_d(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_i(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_x(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_X(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_u(va_list args)
-{
-	(void)args;
-	return (1);
+	len = 0;
+	s = va_arg(args, char *);
+	if (!s)
+		return write(1, "(null)", 6);
+	if (*s)
+	{
+		while (*s)
+		{
+			write(1, s, 1);
+			len++;
+			s++;
+		}
+	}
+	return (len);
 }

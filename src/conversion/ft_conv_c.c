@@ -1,50 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_utils.c                                   :+:      :+:    :+:   */
+/*   ft_conv_c.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 13:36:27 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/12 13:53:51 by omaly            ###   ########.fr       */
+/*   Created: 2025/06/12 13:44:44 by omaly             #+#    #+#             */
+/*   Updated: 2025/06/12 13:48:31 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
 
-int	ft_write_p(va_list args)
+int ft_write_c(va_list args)
 {
-	(void)args;
-	return (1);
-}
+	char c;
 
-int	ft_write_d(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_i(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_x(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_X(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_u(va_list args)
-{
-	(void)args;
-	return (1);
+	c = va_arg(args, int);
+	return (write(1, &c, 1));
 }
