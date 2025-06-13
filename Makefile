@@ -13,7 +13,7 @@ LIBFT_DIR = ./libft
 
 # File names
 SRC_FILES = ft_printf.c ft_print_utils.c
-SRC_FILES_CONV = ft_conv_c.c ft_conv_s.c ft_conv_p.c
+SRC_FILES_CONV = ft_write_c.c ft_write_s.c ft_write_p.c
 
 # Sources
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -48,7 +48,8 @@ fclean: clean
 
 test:
 	make re
-	gcc tests/main.c
+	cc tests/test.c libftprintf.a
+	./a.out
 
 re: fclean all
 

@@ -6,18 +6,13 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 13:36:27 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/12 13:53:51 by omaly            ###   ########.fr       */
+/*   Updated: 2025/06/13 15:59:53 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
 
-int	ft_write_p(va_list args)
-{
-	(void)args;
-	return (1);
-}
 
 int	ft_write_d(va_list args)
 {
