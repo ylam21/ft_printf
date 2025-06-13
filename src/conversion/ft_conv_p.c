@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:08:20 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/12 17:30:06 by omaly            ###   ########.fr       */
+/*   Updated: 2025/06/13 13:36:55 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int ft_write_p(va_list args)
 		value /= 16;
 	}
 
-	while (i < sizeof(buffer))
+	while (i < (int)sizeof(buffer))
 	{
 		buffer[i++] = '0';
 	}
