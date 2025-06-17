@@ -48,13 +48,17 @@ fclean: clean
 
 # Test
 TEST_DIR = ./tests
-TEST_FILES =  test_write_c.c test_write_s.c
+TEST_FILES =  test_write_c.c test_write_s.c test_write_p.c
 TEST_SRC = $(addprefix $(TEST_DIR)/, $(TEST_FILES))
-TEST_BINS = $(patsubst $(TEST_DIR)/%.c, %.out, $(TEST_SRC))
+TEST_BIN_DIR = ./tests_bin
+TEST_BINS = $(patsubst $(TEST_DIR)/%.c, $(TEST_BIN_DIR)/%.out, $(TEST_SRC))
 
-tests: $(TEST_BINS)
+tests: $(TEST_BIN_DIR) $(TEST_BINS)
 
-%.out: $(TEST_DIR)/%.c libft/libft.a libftprintf.a
+$(TEST_BIN_DIR):
+	mkdir -p $(TEST_BIN_DIR)
+
+$(TEST_BIN_DIR)/%.out: $(TEST_DIR)/%.c libft/libft.a libftprintf.a
 	$(CC) $(CFLAGS) -I. -Ilibft -o $@ $< libft/libft.a libftprintf.a
 
 run_tests: tests
@@ -64,7 +68,7 @@ run_tests: tests
 	done
 
 clean_tests:
-	rm -f *.out
+	rm -rf $(TEST_BIN_DIR)
 
 re: fclean all
 

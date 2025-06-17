@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_write_c.c                                     :+:      :+:    :+:   */
+/*   test_write_p.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 22:34:57 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/17 22:35:02 by omaly            ###   ########.fr       */
+/*   Created: 2025/06/17 22:35:09 by omaly             #+#    #+#             */
+/*   Updated: 2025/06/17 22:35:13 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
-int test_char(int c)
+
+int test_pointer(void *p)
 {
 	int pipefd[2];
-	char buffer_mine[2] = {0};
-	char buffer_origin[2] = {0};
+
+	char buffer_mine[1024] = {0};
+	char buffer_origin[1024] = {0};
 
 	int saved_stdout;
 
@@ -29,12 +33,12 @@ int test_char(int c)
 	dup2(pipefd[1],1);
 	close(pipefd[1]);
 
-	int ret_mine = ft_printf("%c",c);
+	int ret_mine = ft_printf("%p",p);
 	fflush(stdout);
 	dup2(saved_stdout,1);
 	close(saved_stdout);
 
-	read(pipefd[0],buffer_mine,1);
+	read(pipefd[0],buffer_mine,sizeof(buffer_mine) - 1);
 	close(pipefd[0]);
 
 	if (pipe(pipefd) == -1)
@@ -44,17 +48,19 @@ int test_char(int c)
 	dup2(pipefd[1],1);
 	close(pipefd[1]);
 
-	int ret_origin = printf("%c",c);
+	int ret_origin = printf("%p",p);
 	fflush(stdout);
 	dup2(saved_stdout,1);
 	close(saved_stdout);
 
-	read(pipefd[0],buffer_origin,1);
+	read(pipefd[0],buffer_origin,sizeof(buffer_origin) - 1);
 	close(pipefd[0]);
 
-	if (ret_mine != ret_origin || buffer_mine[0] != buffer_origin[0])
+	if (ret_mine != ret_origin || strcmp(buffer_mine,buffer_origin) != 0)
 	{
-		printf("Test failed for %d\n", c);
+		printf("Test failed for %p\n", p);
+		printf("aim: %p\ngot: %p\n",buffer_origin, buffer_mine);
+		printf("aim_ret: %d\ngot_ret: %d\n",ret_origin,ret_mine);
 		return 3;
 	}
 
@@ -64,13 +70,34 @@ int test_char(int c)
 
 int main (void)
 {
-	unsigned int limit = 256;
-	unsigned int c = 0;
-	while (c < limit)
-	{
-		if (test_char(c++) != 0)
+	int x = 42;
+	void *heap_ptr = malloc(1);
+	if (!heap_ptr)
+		{
+			printf("Error with malloc\n");
 			return 1;
+		}
+	void *null_ptr = NULL;
+
+	void *tests[] = {
+		&x,
+		heap_ptr,
+		null_ptr,
+		&main,
+		&test_pointer,
+	};
+
+	int i = 0;
+	int tests_count = sizeof(tests)/sizeof(void *);
+	while (i < tests_count)
+	{
+		if (test_pointer(tests[i]) != 0)
+			return i + 2;
+		i++;
 	}
-	printf("Test for '%%c' passed\n");
+
+	free(heap_ptr);
+
+	printf("Test for '%%p' passed\n");
 	return 0;
 }

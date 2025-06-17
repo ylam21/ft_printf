@@ -6,42 +6,49 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:08:20 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/13 16:13:26 by omaly            ###   ########.fr       */
+/*   Updated: 2025/06/17 22:34:28 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-#include <unistd.h>
 #include <stdio.h>
+#include <unistd.h>
 
-int ft_write_p(va_list args)
+static int	ft_write_hex(unsigned long long value, const char *table)
 {
-	static const char *table = "123456789abcdef";
+	int		i;
+	int		digit;
+	int		len;
+	char	buffer[sizeof(void *) * 2];
 
-	void *ptr = va_arg(args,void *);
-
-	if (!ptr)
-		return write(1,"(nil)",5);
-
-	unsigned long long value = (unsigned long long)ptr;
-	char buffer[sizeof(void *) * 2];
-
-	int i = 0;
+	if (value == 0)
+		return (write(1, "0x0", 3));
+	i = 0;
 	while (value)
 	{
-		int	digit = value % 16;
-		buffer[i++] = table[digit - 1];
+		digit = value % 16;
+		buffer[i++] = table[digit];
 		value /= 16;
 	}
-
-	write(1,"0x",2);
-	int len = 2;
+	write(1, "0x", 2);
+	len = 2;
 	while (i--)
 	{
-		write(1,&buffer[i],1);
+		write(1, &buffer[i], 1);
 		len++;
 	}
-
-	return len;
+	return (len);
 }
 
+int	ft_write_p(va_list args)
+{
+	static const char	*table = "0123456789abcdef";
+	void				*ptr;
+	unsigned long long	value;
+
+	ptr = va_arg(args, void *);
+	if (!ptr)
+		return (write(1, "(nil)", 5));
+	value = (unsigned long long)ptr;
+	return (ft_write_hex(value, table));
+}
