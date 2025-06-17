@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 #include <stdio.h>
 #include <unistd.h>
 
@@ -52,13 +52,13 @@ int test_char(int c)
 
 int main (void)
 {
-	int limit = 128;
-	int c = 0;
+	unsigned int limit = 256;
+	unsigned int c = 0;
 	while (c < limit)
 	{
 		if (test_char(c++) != 0)
 			return 1;
 	}
-	printf("Test for '%%c' passed");
+	printf("Test for '%%c' passed\n");
 	return 0;
 }

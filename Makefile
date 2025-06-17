@@ -48,18 +48,18 @@ fclean: clean
 
 # Test
 TEST_DIR = ./tests
-TEST_FILES =  test_write_c.c
+TEST_FILES =  test_write_c.c test_write_s.c
 TEST_SRC = $(addprefix $(TEST_DIR)/, $(TEST_FILES))
 TEST_BINS = $(patsubst $(TEST_DIR)/%.c, %.out, $(TEST_SRC))
 
 tests: $(TEST_BINS)
 
 %.out: $(TEST_DIR)/%.c libft/libft.a libftprintf.a
-	$(CC) $(CFLAGS) -I. -I./libft -o $@ $< libft/libft.a libftprintf.a
+	$(CC) $(CFLAGS) -I. -Ilibft -o $@ $< libft/libft.a libftprintf.a
 
 run_tests: tests
 	@for bin in $(TEST_BINS); do \
-		echo "Running $$bin..."; \
+		echo "[Running $$bin...]"; \
 		./$$bin || exit 1; \
 	done
 
