@@ -46,11 +46,26 @@ fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
-test:
-	make re
-	cc tests/test.c libftprintf.a
-	./a.out
+# Test
+TEST_DIR = ./tests
+TEST_FILES =  test_write_c.c
+TEST_SRC = $(addprefix $(TEST_DIR)/, $(TEST_FILES))
+TEST_BINS = $(patsubst $(TEST_DIR)/%.c, %.out, $(TEST_SRC))
+
+tests: $(TEST_BINS)
+
+%.out: $(TEST_DIR)/%.c libft/libft.a libftprintf.a
+	$(CC) $(CFLAGS) -I. -I./libft -o $@ $< libft/libft.a libftprintf.a
+
+run_tests: tests
+	@for bin in $(TEST_BINS); do \
+		echo "Running $$bin..."; \
+		./$$bin || exit 1; \
+	done
+
+clean_tests:
+	rm -f *.out
 
 re: fclean all
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re tests run_tests clean_tests

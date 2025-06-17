@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 13:44:44 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/13 16:31:41 by omaly            ###   ########.fr       */
+/*   Updated: 2025/06/17 19:41:24 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int ft_write_c(va_list args)
 	char c;
 
 	c = va_arg(args, int);
-	if (c > 0)
+
+	if (c >= 0)
 		return (write(1, &c, 1));
+	return -1;
 }
