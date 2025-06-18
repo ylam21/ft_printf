@@ -13,7 +13,7 @@ LIBFT_DIR = ./libft
 
 # File names
 SRC_FILES = ft_printf.c ft_print_utils.c
-SRC_FILES_CONV = ft_write_c.c ft_write_s.c ft_write_p.c
+SRC_FILES_CONV = ft_write_c.c ft_write_s.c ft_write_p.c ft_write_d.c
 
 # Sources
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -48,7 +48,7 @@ fclean: clean
 
 # Test
 TEST_DIR = ./tests
-TEST_FILES =  test_write_c.c test_write_s.c test_write_p.c
+TEST_FILES =  test_write_c.c test_write_s.c test_write_p.c test_write_d.c
 TEST_SRC = $(addprefix $(TEST_DIR)/, $(TEST_FILES))
 TEST_BIN_DIR = ./tests_bin
 TEST_BINS = $(patsubst $(TEST_DIR)/%.c, $(TEST_BIN_DIR)/%.out, $(TEST_SRC))
@@ -58,8 +58,8 @@ tests: $(TEST_BIN_DIR) $(TEST_BINS)
 $(TEST_BIN_DIR):
 	mkdir -p $(TEST_BIN_DIR)
 
-$(TEST_BIN_DIR)/%.out: $(TEST_DIR)/%.c libft/libft.a libftprintf.a
-	$(CC) $(CFLAGS) -I. -Ilibft -o $@ $< libft/libft.a libftprintf.a
+$(TEST_BIN_DIR)/%.out: $(TEST_DIR)/%.c libftprintf.a libft/libft.a
+	$(CC) $(CFLAGS) -Ilibft -I. -o $@ $< libftprintf.a libft/libft.a
 
 run_tests: tests
 	@for bin in $(TEST_BINS); do \

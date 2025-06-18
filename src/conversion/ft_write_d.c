@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_utils.c                                   :+:      :+:    :+:   */
+/*   ft_write_d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 13:36:27 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/18 16:53:06 by omaly            ###   ########.fr       */
+/*   Created: 2025/06/18 16:52:19 by omaly             #+#    #+#             */
+/*   Updated: 2025/06/18 17:30:13 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../libft/libft.h"
 #include <stdarg.h>
-#include <unistd.h>
 
-int	ft_write_i(va_list args)
+int	ft_write_d(va_list args)
 {
-	(void)args;
-	return (1);
-}
+	int		value;
+	char	*s;
+	size_t	s_len;
+	size_t	i;
 
-int	ft_write_x(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_X(va_list args)
-{
-	(void)args;
-	return (1);
-}
-
-int	ft_write_u(va_list args)
-{
-	(void)args;
-	return (1);
+	value = va_arg(args, int);
+	s = ft_itoa(value);
+	s_len = ft_strlen(s);
+	i = 0;
+	while (i < s_len)
+		write(1, &s[i++], 1);
+	return (s_len);
 }

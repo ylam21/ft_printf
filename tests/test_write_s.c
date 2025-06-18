@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 22:35:19 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/17 22:35:22 by omaly            ###   ########.fr       */
+/*   Updated: 2025/06/18 17:38:56 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int test_string(char *s)
 	dup2(saved_stdout,1);
 	close(saved_stdout);
 
-	read(pipefd[0],buffer_mine,sizeof(buffer_mine) - 1);
+	size_t len;
+	len = read(pipefd[0],buffer_mine,sizeof(buffer_mine) - 1);
+	buffer_mine[len] = '\0';
 	close(pipefd[0]);
 
 	if (pipe(pipefd) == -1)
@@ -51,7 +53,8 @@ int test_string(char *s)
 	dup2(saved_stdout,1);
 	close(saved_stdout);
 
-	read(pipefd[0],buffer_origin,sizeof(buffer_origin) - 1);
+	len = read(pipefd[0],buffer_origin,sizeof(buffer_origin) - 1);
+	buffer_origin[len] = '\0';
 	close(pipefd[0]);
 
 	if (ret_mine != ret_origin || strcmp(buffer_mine,buffer_origin) != 0)
