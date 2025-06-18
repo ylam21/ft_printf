@@ -64,7 +64,7 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I . -c $< -o $@
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 bonus: $(OBJS) $(BONUS_OBJS)

@@ -6,14 +6,14 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 20:14:32 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/11 18:34:26 by omaly            ###   ########.fr       */
+/*   Updated: 2025/06/18 19:27:27 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 
-#define FT_PRINTF_H
+# define FT_PRINTF_H
 
-int ft_printf(const char *format, ...);
+int	ft_printf(const char *format, ...);
 
 #endif

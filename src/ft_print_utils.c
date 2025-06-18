@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 13:36:27 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/18 18:00:39 by omaly            ###   ########.fr       */
+/*   Updated: 2025/06/18 19:26:53 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,3 @@ int	ft_write_X(va_list args)
 	return (1);
 }
 
-int	ft_write_u(va_list args)
-{
-	(void)args;
-	return (1);
-}
