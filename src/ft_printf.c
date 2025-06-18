@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 20:14:23 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/18 17:21:39 by omaly            ###   ########.fr       */
+/*   Updated: 2025/06/18 20:25:19 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_handle_per_cent(va_list args, char c)
 	else if (c == 'x')
 		return (ft_write_x(args));
 	else if (c == 'X')
-		return (ft_write_X(args));
+		return (ft_write_upx(args));
 	else
 		return (-1);
 }
