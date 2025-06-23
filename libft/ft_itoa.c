@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:29:48 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/03 16:07:11 by omaly            ###   ########.fr       */
+/*   Updated: 2025/06/23 20:29:29 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_itoa(int num)
 	len = ft_intlen(num);
 	nb = num;
 	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (len == 0)
+	if (!str || len == 0)
 		return (NULL);
 	str[len] = '\0';
 	if (nb == 0)

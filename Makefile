@@ -13,7 +13,7 @@ LIBFT_DIR = ./libft
 
 # File names
 SRC_FILES = ft_printf.c
-SRC_FILES_CONV = ft_write_c.c ft_write_s.c ft_write_p.c ft_write_d.c ft_write_i.c ft_write_u.c ft_write_x.c ft_write_upx.c
+SRC_FILES_CONV = ft_write_c.c ft_write_s.c ft_write_p.c ft_write_d.c ft_write_u.c ft_write_x.c ft_write_upx.c
 
 # Sources
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -48,7 +48,7 @@ fclean: clean
 
 # Test
 TEST_DIR = ./tests
-TEST_FILES =  test_write_c.c test_write_s.c test_write_p.c test_write_d.c test_write_i.c test_write_u.c test_write_x.c test_write_upx.c test_party.c
+TEST_FILES =  test_write_c.c test_write_s.c test_write_p.c test_write_d.c test_write_i.c test_write_u.c test_write_x.c test_write_upx.c test_party.c test_percent.c
 TEST_SRC = $(addprefix $(TEST_DIR)/, $(TEST_FILES))
 TEST_BIN_DIR = ./tests_bin
 TEST_BINS = $(patsubst $(TEST_DIR)/%.c, $(TEST_BIN_DIR)/%.out, $(TEST_SRC))

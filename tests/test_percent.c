@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_party.c                                       :+:      :+:    :+:   */
+/*   test_percent.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/18 20:40:08 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/23 20:59:14 by omaly            ###   ########.fr       */
+/*   Created: 2025/06/23 20:48:14 by omaly             #+#    #+#             */
+/*   Updated: 2025/06/23 20:56:23 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,22 @@
 #include <string.h>
 #include <unistd.h>
 
-int	test_party(char *str, char c, int d, int i, void *ptr, char *s,
-		unsigned int u, unsigned int x, unsigned int X)
+int test_percent()
 {
-	char	buffer_mine[1024];
-	char	buffer_origin[1024];
-	int		ret_mine;
-	int		ret_origin;
-	size_t	len;
-	int		saved_stdout;
-	int		fds[2];
+	char buffer_mine[1024];
+	char buffer_origin[1024];
+	int ret_mine;
+	int ret_origin;
+	size_t len;
+	int saved_stdout;
+	int fds[2];
 
 	if (pipe(fds) == -1)
 		return (-1);
 	saved_stdout = dup(1);
 	dup2(fds[1], 1);
 	close(fds[1]);
-	ret_mine = ft_printf(str, c, d, i, ptr, s, u, x, X);
+	ret_mine = ft_printf("%%");
 	fflush(stdout);
 	dup2(saved_stdout, 1);
 	close(saved_stdout);
@@ -43,7 +42,7 @@ int	test_party(char *str, char c, int d, int i, void *ptr, char *s,
 	saved_stdout = dup(1);
 	dup2(fds[1], 1);
 	close(fds[1]);
-	ret_origin = printf(str, c, d, i, ptr, s, u, x, X);
+	ret_origin = printf("%%");
 	fflush(stdout);
 	dup2(saved_stdout, 1);
 	close(saved_stdout);
@@ -59,31 +58,10 @@ int	test_party(char *str, char c, int d, int i, void *ptr, char *s,
 	return (0);
 }
 
-int	main(void)
+int main(void)
 {
-	char			c;
-	int				d;
-	int				i;
-	void			*ptr;
-	char			*s;
-	unsigned int	u;
-	unsigned int	x;
-	unsigned int	X;
-	char			*test;
-
-	// values
-	c = 'a';
-	d = 0;
-	i = 42;
-	ptr = NULL;
-	s = "Hello";
-	u = 0;
-	x = 13;
-	X = 14;
-	test = "%c%d%i%p%s%u%X%x%";
-	if (test_party(test, c, d, i, ptr, s, u, x, X) != 0)
-		return (1);
-	printf("Test for PARTY passed\n");
+	if (test_percent() != 0)
+		return 1;
+	printf("Test for PERCENT passed\n");
 	return (0);
 }
-
