@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 22:35:19 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/18 19:28:18 by omaly            ###   ########.fr       */
+/*   Updated: 2025/07/02 12:38:57 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ int	test_string(char *s)
 int	main(void)
 {
 	char	*tests[] = {"", "\0", "hello", NULL, "string with % in it",
-			"long string: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+			"long string: Lorem ipsum dolor sit amet,
+			consectetur adipiscing elit,
+			sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 			"he\nll\to"};
 	int		i;
 	int		tests_count;
