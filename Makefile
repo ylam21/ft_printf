@@ -1,9 +1,9 @@
 NAME = libftprintf.a
+NAME_LIBFT = libft.a
 
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
-
+CFLAGS = -Wall -Wextra -Werror
 # Directories
 SRC_DIR = ./src
 SRC_DIR_CONV = $(SRC_DIR)/conversion
@@ -25,12 +25,21 @@ OBJS_CONV = $(patsubst $(SRC_DIR_CONV)/%.c, $(OBJ_DIR_CONV)/%.o, $(SRCS_CONV))
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJS) $(OBJS_CONV)
+$(NAME): $(NAME_LIBFT) $(OBJ_DIR) $(OBJ_DIR_CONV) $(OBJS) $(OBJS_CONV)
+	mkdir -p tmp_objects
+	cp $(LIBFT_DIR)/$(NAME_LIBFT) tmp_objects/
+	cd tmp_objects && ar x $(NAME_LIBFT)
+	ar -rcs $(NAME) $(OBJS) $(OBJS_CONV) tmp_objects/*.o
+	rm -rf tmp_objects
+
+$(NAME_LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
-	ar -rcs $(NAME) $(OBJS) $(OBJS_CONV) $(LIBFT_DIR)/libft.a
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR) $(OBJ_DIR_CONV)
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR_CONV):
+	mkdir -p $(OBJ_DIR_CONV)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(LIBFT_DIR) -c $< -o $@
