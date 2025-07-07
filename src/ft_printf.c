@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 20:14:23 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/23 20:25:49by omaly            ###   ########.fr       */
+/*   Updated: 2025/07/01 18:54:22 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-int ft_is_in_set(char c)
+int	ft_is_in_set(char c)
 {
-	return ( c == '%' || c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X');
+	return (c == '%' || c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i'
+		|| c == 'u' || c == 'x' || c == 'X');
 }
-
 
 int	ft_handle_per_cent(va_list args, char c)
 {
@@ -45,7 +45,7 @@ int	ft_handle_per_cent(va_list args, char c)
 int	ft_printf(const char *format, ...)
 {
 	int		t_len;
-	int i;
+	int		i;
 	va_list	args;
 
 	t_len = 0;
@@ -58,13 +58,13 @@ int	ft_printf(const char *format, ...)
 			if (format[i + 1] == '\0')
 				return (-1);
 			else if (ft_is_in_set(format[i + 1]))
-				t_len += ft_handle_per_cent(args,format[i + 1]);
+				t_len += ft_handle_per_cent(args, format[i + 1]);
 			else
-				t_len += write(1,&format[i],1);
+				t_len += write(1, &format[i], 1);
 			i++;
 		}
 		else
-			t_len += write(1,&format[i], 1);
+			t_len += write(1, &format[i], 1);
 		i++;
 	}
 	va_end(args);

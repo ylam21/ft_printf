@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:48:14 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/23 20:56:23 by omaly            ###   ########.fr       */
+/*   Updated: 2025/07/02 12:38:29 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 #include <string.h>
 #include <unistd.h>
 
-int test_percent()
+int	test_percent(void)
 {
-	char buffer_mine[1024];
-	char buffer_origin[1024];
-	int ret_mine;
-	int ret_origin;
-	size_t len;
-	int saved_stdout;
-	int fds[2];
+	char	buffer_mine[1024];
+	char	buffer_origin[1024];
+	int		ret_mine;
+	int		ret_origin;
+	size_t	len;
+	int		saved_stdout;
+	int		fds[2];
 
 	if (pipe(fds) == -1)
 		return (-1);
@@ -58,10 +58,10 @@ int test_percent()
 	return (0);
 }
 
-int main(void)
+int	main(void)
 {
 	if (test_percent() != 0)
-		return 1;
+		return (1);
 	printf("Test for PERCENT passed\n");
 	return (0);
 }
