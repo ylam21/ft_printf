@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 20:14:23 by omaly             #+#    #+#             */
-/*   Updated: 2025/07/09 21:51:15 by omaly            ###   ########.fr       */
+/*   Updated: 2025/07/09 22:27:50 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_is_in_set(char c)
 		|| c == 'u' || c == 'x' || c == 'X');
 }
 
-int	ft_handle_per_cent(va_list args, char c)
+int	ft_handle_valid_specifier(va_list args, char c)
 {
 	if (c == '%')
 		return (write(1, &c, 1));
@@ -43,10 +43,31 @@ int	ft_handle_per_cent(va_list args, char c)
 		return (0);
 }
 
+int	ft_handle_percent(const char *format, int *i, va_list args)
+{
+	int	ret;
+
+	ret = 0;
+	if (format[*i + 1] == '\0' || (ft_is_in_set(format[*i + 1]) == 0
+			&& ft_isprint(format[*i + 1])))
+		return (-1);
+	else if (ft_is_in_set(format[*i + 1]))
+	{
+		ret += ft_handle_valid_specifier(args, format[*i + 1]);
+		(*i)++;
+	}
+	else if (ft_isprint(format[*i + 1]) == 0)
+	{
+		ret += write(1, &format[*i], 1);
+	}
+	return (ret);
+}
+
 int	ft_printf(const char *format, ...)
 {
 	int		t_len;
 	int		i;
+	int		ret;
 	va_list	args;
 
 	t_len = 0;
@@ -56,13 +77,13 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			if (format[i + 1] == '\0' || (ft_is_in_set(format[i + 1]) == 0
-					&& ft_isprint(format[i + 1])))
+			ret = ft_handle_percent(format, &i, args);
+			if (ret == -1)
+			{
+				va_end(args);
 				return (-1);
-			else if (ft_is_in_set(format[i + 1]))
-				t_len += ft_handle_per_cent(args, format[++i]);
-			else if (ft_isprint(format[i + 1]) == 0)
-				t_len += write(1, &format[i], 1);
+			}
+			t_len += ret;
 			i++;
 		}
 		else
