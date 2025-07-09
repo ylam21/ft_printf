@@ -60,9 +60,7 @@ int	test_string(char *s)
 int	main(void)
 {
 	char	*tests[] = {"", "\0", "hello", NULL, "string with % in it",
-			"long string: Lorem ipsum dolor sit amet,
-			consectetur adipiscing elit,
-			sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+			"long string: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 			"he\nll\to"};
 	int		i;
 	int		tests_count;
