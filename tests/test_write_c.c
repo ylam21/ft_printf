@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 22:34:57 by omaly             #+#    #+#             */
-/*   Updated: 2025/06/18 20:06:26 by omaly            ###   ########.fr       */
+/*   Updated: 2025/07/09 21:42:16 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	test_char(int c)
 	close(pipefd[0]);
 	if (ret_mine != ret_origin || buffer_mine[0] != buffer_origin[0])
 	{
+		printf("expected: %s\ngot: %s\n",buffer_origin,buffer_mine);
+		printf("expected: %i\ngot: %i\n",ret_origin,ret_mine);
 		printf("Test failed for %d\n", c);
 		return (3);
 	}

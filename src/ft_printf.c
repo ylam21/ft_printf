@@ -6,14 +6,14 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 20:14:23 by omaly             #+#    #+#             */
-/*   Updated: 2025/07/01 18:54:22 by omaly            ###   ########.fr       */
+/*   Updated: 2025/07/09 21:51:15 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../libft/libft.h"
 #include "conversion/ft_print_utils.h"
 #include <stdarg.h>
 #include <unistd.h>
-#include "../../libft/libft.h"
 
 int	ft_is_in_set(char c)
 {
@@ -56,20 +56,17 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			if (format[i + 1] == '\0' || (ft_is_in_set(format[i + 1]) == 0 && ft_isprint(format[i + 1]) == 1))
+			if (format[i + 1] == '\0' || (ft_is_in_set(format[i + 1]) == 0
+					&& ft_isprint(format[i + 1])))
 				return (-1);
 			else if (ft_is_in_set(format[i + 1]))
-				t_len += ft_handle_per_cent(args, format[i + 1]);
-			else if (ft_isprint(format[i + 1]) == 0) {
+				t_len += ft_handle_per_cent(args, format[++i]);
+			else if (ft_isprint(format[i + 1]) == 0)
 				t_len += write(1, &format[i], 1);
-				i++;
-				continue;
-			}
 			i++;
 		}
 		else
-			t_len += write(1, &format[i], 1);
-		i++;
+			t_len += write(1, &format[i++], 1);
 	}
 	va_end(args);
 	return (t_len);
